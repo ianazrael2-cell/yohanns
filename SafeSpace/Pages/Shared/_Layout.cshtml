@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Yohann's StaySure</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" asp-page="/Index">Yohann’s StaySure</a>
+        <nav>
+            <a asp-page="/Index">Home</a>
+            <a asp-page="/Booking">Booking</a>
+            <a asp-page="/Dashboard">Dashboard</a>
+            <a asp-page="/Login">Login</a>
+        </nav>
+    </header>
+
+    <main class="page-shell">
+        @RenderBody()
+    </main>
+</body>
+</html>

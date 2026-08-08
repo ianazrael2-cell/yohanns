@@ -1,0 +1,49 @@
+@page
+@model SafeSpace.Pages.DashboardModel
+@{
+    ViewData["Title"] = "StaySure operations dashboard";
+}
+
+<section class="hero-card compact">
+    <div class="hero-copy">
+        <p class="eyebrow">Operations centre</p>
+        <h1>Business-ready oversight for every booking</h1>
+        <p class="lead">Use the dashboard to see the latest reservations, review status, and monitor payment and verification outcomes.</p>
+    </div>
+</section>
+
+<section class="glass-card dashboard-card">
+    <h2>Recent bookings</h2>
+    @if (Model.Bookings.Any())
+    {
+        <table class="booking-table">
+            <thead>
+                <tr>
+                    <th>Booking ID</th>
+                    <th>Guest</th>
+                    <th>Room</th>
+                    <th>Status</th>
+                    <th>Amount</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var booking in Model.Bookings)
+                {
+                    <tr>
+                        <td>@booking.BookingId</td>
+                        <td>@booking.GuestName</td>
+                        <td>@booking.RoomType</td>
+                        <td><span class="status-label @(booking.Status.ToString().ToLowerInvariant())">@booking.StatusLabel</span></td>
+                        <td>@booking.Amount.ToString("C")</td>
+                        <td>@booking.Source</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No bookings have been logged yet. Start from the booking portal to populate the dashboard.</p>
+    }
+</section>

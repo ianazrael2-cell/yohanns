@@ -1,0 +1,54 @@
+@page
+@model SafeSpace.Pages.LoginModel
+@{
+    ViewData["Title"] = "Sign in to StaySure";
+}
+
+<section class="auth-shell">
+    <div class="hero-card compact auth-hero">
+        <div class="hero-copy">
+            <p class="eyebrow">Welcome to StaySure</p>
+            <h1>Secure, refined guest operations for every reservation.</h1>
+            <p class="lead">Log in to review bookings, verify guest trust, and move each staycation from inquiry to confirmation with calm confidence.</p>
+        </div>
+        <div class="hero-panel">
+            <div class="stat-pill">Verified identities</div>
+            <div class="stat-pill">Elegant booking flow</div>
+            <div class="stat-pill">Fast invoice + payment handoff</div>
+        </div>
+    </div>
+
+    <div class="glass-card auth-card">
+        <p class="eyebrow">Operator access</p>
+        <h2>Welcome back</h2>
+        <p class="lead">Use your StaySure credentials to continue managing staycation requests and live operations.</p>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Message))
+        {
+            <div class="feedback">@Model.Message</div>
+        }
+
+        <form method="post" class="auth-form">
+            <label class="form-label">
+                Email address
+                <input asp-for="Input.Email" type="email" placeholder="owner@staysure.test" required />
+            </label>
+            <label class="form-label">
+                Password
+                <input asp-for="Input.Password" type="password" placeholder="Enter your password" required />
+            </label>
+
+            <div class="helper-row">
+                <label class="checkbox-row">
+                    <input type="checkbox" />
+                    <span>Keep me signed in</span>
+                </label>
+                <a asp-page="/Index">Back to home</a>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Sign in</button>
+        </form>
+
+        <p class="muted-copy">Demo credentials: owner@staysure.test / StaySure2026!</p>
+    </div>
+</section>

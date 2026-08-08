@@ -1,0 +1,91 @@
+@page
+@model SafeSpace.Pages.BookingModel
+@{
+    ViewData["Title"] = "Create a staycation booking";
+}
+
+<section class="hero-card compact">
+    <div class="hero-copy">
+        <p class="eyebrow">Guest intake portal</p>
+        <h1>Booking capture with built-in verification</h1>
+        <p class="lead">Submit the stay details and supporting ID so Yohann’s StaySure can evaluate identity, availability, invoicing, and payment in one click.</p>
+    </div>
+</section>
+
+<section class="form-layout">
+    <form class="glass-card booking-form" method="post" enctype="multipart/form-data">
+        <h2>Reservation request</h2>
+        <div class="form-grid">
+            <label>
+                Guest name
+                <input asp-for="Input.GuestName" />
+            </label>
+            <label>
+                Guest email
+                <input asp-for="Input.GuestEmail" type="email" />
+            </label>
+            <label>
+                Room type
+                <select asp-for="Input.RoomType">
+                    <option>Deluxe Suite</option>
+                    <option>Signature Loft</option>
+                    <option>Garden Villa</option>
+                </select>
+            </label>
+            <label>
+                Government ID type
+                <select asp-for="Input.GovernmentIdType">
+                    <option>Passport</option>
+                    <option>National ID</option>
+                    <option>Driver License</option>
+                </select>
+            </label>
+            <label>
+                Check-in
+                <input asp-for="Input.CheckIn" type="date" />
+            </label>
+            <label>
+                Check-out
+                <input asp-for="Input.CheckOut" type="date" />
+            </label>
+            <label>
+                Age
+                <input asp-for="Input.GuestAge" type="number" min="18" />
+            </label>
+            <label>
+                Upload ID
+                <input asp-for="GovernmentId" type="file" />
+            </label>
+            <label class="full-width">
+                Selfie note
+                <textarea asp-for="Input.SelfieNote" rows="3" placeholder="Describe the selfie verification state for the operator"></textarea>
+            </label>
+        </div>
+        <button class="btn btn-primary" type="submit">Process staycation</button>
+    </form>
+
+    <aside class="glass-card workflow-card">
+        <h2>Workflow response</h2>
+        @if (!string.IsNullOrWhiteSpace(Model.Feedback))
+        {
+            <p class="feedback">@Model.Feedback</p>
+        }
+        @if (Model.LastResult is not null)
+        {
+            <div class="result-stack">
+                <div class="result-pill">Booking ID: @Model.LastResult.BookingId</div>
+                <div class="result-pill">Status: @Model.LastResult.Status</div>
+                <div class="result-pill">Invoice: @Model.LastResult.InvoiceId</div>
+                <div class="result-pill">Deposit link: <a href="@Model.LastResult.PaymentLink" target="_blank">@Model.LastResult.PaymentLink</a></div>
+                <p><strong>Verification:</strong> @Model.LastResult.VerificationSummary</p>
+                <p><strong>Availability:</strong> @Model.LastResult.AvailabilitySummary</p>
+                <p><strong>Channels:</strong> @Model.LastResult.ChannelSummary</p>
+                <p><strong>Message:</strong> @Model.LastResult.Message</p>
+            </div>
+        }
+        else
+        {
+            <p>Every booking begins with a secure identity check and finishes with a synchronized availability, invoice, and payment link.</p>
+        }
+    </aside>
+</section>

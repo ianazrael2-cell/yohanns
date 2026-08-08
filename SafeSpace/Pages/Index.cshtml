@@ -1,0 +1,79 @@
+@page
+@model SafeSpace.Pages.IndexModel
+@{
+    ViewData["Title"] = "Yohann's StaySure";
+}
+
+<section class="hero-card">
+    <div class="hero-copy">
+        <p class="eyebrow">Pastel white luxury operations</p>
+        <h1>Yohann’s StaySure</h1>
+        <p class="lead">An elegant staycation management platform that turns Facebook Messenger bookings into verified, paid, and flawlessly synchronized reservations.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" asp-page="/Booking">Start a booking</a>
+            <a class="btn btn-secondary" asp-page="/Dashboard">View operations</a>
+        </div>
+    </div>
+    <div class="hero-panel">
+        <div class="stat-pill">Identity verification</div>
+        <div class="stat-pill">Live calendar sync</div>
+        <div class="stat-pill">Instant invoice + payment link</div>
+    </div>
+</section>
+
+<section class="feature-grid">
+    <article class="glass-card">
+        <h3>Automated trust</h3>
+        <p>Government-ID review, live selfie comparison, and age checks happen before any reservation is accepted.</p>
+    </article>
+    <article class="glass-card">
+        <h3>One source of truth</h3>
+        <p>Availability is blocked across Airbnb, iCal, and direct channels so double-bookings become a thing of the past.</p>
+    </article>
+    <article class="glass-card">
+        <h3>Fast guest experience</h3>
+        <p>Messenger responses, invoices, and deposit links arrive instantly so guests are not lost to competitors.</p>
+    </article>
+</section>
+
+<section class="timeline-card">
+    <h2>How the workflow behaves</h2>
+    <div class="timeline">
+        <div>
+            <strong>1. Messenger request</strong>
+            <p>Incoming booking inquiries are accepted through a webhook-ready integration layer.</p>
+        </div>
+        <div>
+            <strong>2. Identity review</strong>
+            <p>Secure ID upload and verification reveal tampering, mismatches, and minors before confirmation.</p>
+        </div>
+        <div>
+            <strong>3. Parallel operations</strong>
+            <p>Availability, syncing, invoices, and payments move in parallel so the experience stays elegant and fast.</p>
+        </div>
+    </div>
+</section>
+
+<section class="glass-card preview-card">
+    <div class="preview-header">
+        <h2>Live booking snapshot</h2>
+        <a asp-page="/Dashboard">Open full dashboard</a>
+    </div>
+    @if (Model.RecentBookings.Any())
+    {
+        <ul class="booking-list">
+            @foreach (var booking in Model.RecentBookings)
+            {
+                <li>
+                    <span>@booking.GuestName</span>
+                    <span>@booking.RoomType</span>
+                    <span class="status-label @(booking.Status.ToString().ToLowerInvariant())">@booking.StatusLabel</span>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No bookings have been processed yet. Create one to see the workflow in action.</p>
+    }
+</section>
